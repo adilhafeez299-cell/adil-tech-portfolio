@@ -1,94 +1,93 @@
 # CURRENT STATUS - Data Engineering Journey
-**Last Updated:** January 31, 2026
+**Last Updated:** April 16, 2026
 
 ## Where I Am Now
 
-**Week:** 9-10 of 78-week plan (18-month timeline)
+**Week:** ~24 of 78-week plan
 **Date Started:** November 2025
-**Current Date:** January 31, 2026
+**Current Date:** April 2026
 
 **Career Goal:**
-- Primary: Python-focused Software Engineer
-- Specialization: Data Engineering / Platform Engineering / Cloud Engineering
-- Secondary flexibility: AI, Backend, other Python-based technical roles
-
-## Phase 1: Python Foundations (IN PROGRESS)
-
-**Bogdan Python Course:**
-- Progress: 53-54 out of 92 chapters (58%)
-- Chapters remaining: ~38
-- Target completion: Week 12 (mid-February 2026)
-
-**Timeline:**
-- Started: November 2025
-- Current: Week 9-10 (Jan 31, 2026)
-- Target finish: Week 12 (mid-Feb 2026)
-
-**Weekly Study:**
-- Saturday: 4-5 hours (deep coding)
-- Sunday: 3-4 hours (coding + review)
-- Tuesday/Thursday: 1-2 hours (optional, energy-dependent)
-- Total: 10-13 hours/week
-
-**Non-negotiables:**
-- Gym 5-6x/week (mental health)
-- Code every example myself (no copy-paste)
-- Weekend momentum is key
-
-## What's Next (Immediate)
-
-**This Weekend (Feb 1-2):**
-- Target: Chapter 54 → 60+ (reach ~65%)
-- Method: Code every example
-- Focus: Build momentum
-
-**Week 10-12:**
-- Push to 100% Bogdan completion
-- Finish Phase 1 strong
-- Prepare for AWS cert phase (Weeks 13+)
-
-## Resources on Shelf
-
-**Books purchased (23 total):**
-- Python: Practices of the Python Pro
-- Interview: Acing the System Design Interview
-- Career: Build a Career in Data Science, Own Your Tech Career
-- Leadership: Think Like a CTO, How to Lead in Data Science (aspirational)
-- Finance: Investing for Programmers
-- Other SE topics: Various (breadth building)
-
-**Status:** Shelf for later reference. Current focus: Bogdan completion.
-
-## Upcoming Phases
-
-**Phase 2: AWS Certifications (Weeks 13-32)**
-- AWS Developer Associate (target: Week 23, ~May 2026)
-- AWS Solutions Architect Associate (target: Week 32, ~Jul 2026)
-
-**Phase 3: SQL Mastery (Weeks 33-40)**
-- Mode Analytics SQL Tutorial
-- 30+ practice queries
-- Project 2: Financial Dataset Analysis
-
-**Phase 4: Databricks (Weeks 41-48)**
-- Databricks Data Engineer Associate
-- Databricks Data Engineer Professional
-- Project 3: Medallion ETL Pipeline
-
-**Phase 5+:** Interview prep, advanced projects, job search (Weeks 49+)
-
-## Key Metrics
-
-**Certifications Target:**
-- AWS Developer Associate (~May 2026)
-- AWS Solutions Architect Associate (~Jul 2026)
-- Databricks DE Associate (~Nov 2026)
-- Databricks DE Professional (~Dec 2026)
-
-**Projects Target:** 3-4 portfolio projects
-**Job Search Launch:** Mid-2027 (flexible based on progress)
-**Salary Target:** £60k-£75k for first engineering role
+- Primary: Data Engineer / Platform Engineer / Cloud Engineer (Python-focused)
+- Specialization: Fintech / trading infrastructure / cloud data platforms
+- Secondary: ML Engineer (longer term)
+- Salary Target: £60k-£75k for first engineering role
 
 ---
 
-*This file tracks current reality. Update weekly or when major milestones hit.*
+## Active Focus Areas
+
+### 1. Python (In Progress)
+- Bogdan Stashchuk - Complete Python (O'Reilly) — targeting completion
+- Exercism exercises for applied practice
+- Building toward Project 1: Python Automation Tool
+
+### 2. AWS Certifications (Active)
+- **AWS Developer Associate** — in progress
+- **AWS Solutions Architect Associate** — in progress
+- Study materials in `02-aws/`
+- Target: both completed by mid-2026
+
+### 3. Linux
+- Learning Linux fundamentals (command line, file system, permissions, scripting)
+- Materials in `03-linux/`
+
+### 4. Cloud Infrastructure
+- Hands-on AWS labs alongside cert study
+- IaC exposure (CloudFormation / CDK)
+
+---
+
+## Upcoming Phases
+
+**Next:**
+- Complete Python (Bogdan course)
+- AWS Developer Associate exam
+- AWS Solutions Architect Associate exam
+- Project 1: Python Automation Tool (CLI data processor)
+
+**Later:**
+- Databricks DE Associate
+- Databricks DE Professional
+- SQL Mastery + Project 2
+- Portfolio projects 3-9 (fintech-themed)
+
+---
+
+## Certifications Roadmap
+
+| Cert | Status | Target |
+|---|---|---|
+| AWS Developer Associate | In Progress | Mid 2026 |
+| AWS Solutions Architect Associate | In Progress | Mid 2026 |
+| Databricks DE Associate | Planned | Late 2026 |
+| Databricks DE Professional | Planned | Early 2027 |
+
+---
+
+## Portfolio Projects (Planned)
+
+| # | Project | Theme |
+|---|---|---|
+| 1 | Python Automation Tool | Data processing CLI |
+| 2 | SQL Analysis | Financial trading schema |
+| 3 | Databricks ETL | Market data medallion pipeline |
+| 4 | Fraud Detection Engine | Imbalanced ML, fintech |
+| 5 | AWS Market Data Pipeline | Serverless, event-driven |
+| 6 | Fintech Data Platform | Capstone — integrates 1-5, 7-9 |
+| 7 | Options Pricing Engine | Black-Scholes + Greeks |
+| 8 | Algo Trading Backtester | yfinance, SMA/RSI strategies |
+| 9 | Epidemic Simulator | SIR/SEIR, numerical Python |
+
+---
+
+## Study Schedule
+
+- Saturday: 4-5 hours (deep coding / labs)
+- Sunday: 3-4 hours (coding + review)
+- Tuesday/Thursday: 1-2 hours (optional)
+- Target: 10-13 hours/week
+
+---
+
+*Update this file weekly or when major milestones hit.*

@@ -1,32 +1,40 @@
 # Roadmap Context
 
 ## Current Status
-**Date:** November 3, 2025
-**Phase:** Phase 1 - Python Fundamentals (Week 5)
-**Bogdan Course:** Chapter 9 complete (~15%)
-**This Week:** Vacation week (6-8 hrs/day)
-
-## This Week's Goals
-- [x] Complete environment setup
-- [ ] Bogdan Python course to 50-60%
-- [ ] Python for Data Analysis: Chapters 1-3
-- [ ] Essential Math for AI: Vectors
-- [ ] Project 1: Python automation tool
-
-## Environment
-- Python 3.11 (conda: dataeng)
-- VS Code + PyCharm
-- Git + GitHub
+**Date:** April 16, 2026
+**Phase:** Python + AWS Certs (concurrent)
+**Week:** ~24 of 78
 
 ## Background
 - Current: Systems Engineer at MSP (finance)
-- Goal: Data Engineer → ML Engineer
-- Timeline: Oct 2025 - July 2026
+- Goal: Data Engineer → ML Engineer (fintech focus)
+- Timeline: Nov 2025 – mid 2027
 
-## Active Courses
-- Bogdan Stashchuk - Complete Python (O'Reilly)
+## Active Focus
+1. Python — Bogdan Stashchuk Complete Python (O'Reilly), ~58%+ complete
+2. AWS Developer Associate — in progress
+3. AWS Solutions Architect Associate — in progress
+4. Linux fundamentals
+5. Cloud infrastructure (hands-on AWS labs)
 
 ## Certifications
-1. Databricks DE Associate - Jan 2026
-2. Databricks DE Professional - Feb 2026
-3. AWS DE Associate - May 2026
+1. AWS Developer Associate — target mid 2026
+2. AWS Solutions Architect Associate — target mid 2026
+3. Databricks DE Associate — target late 2026
+4. Databricks DE Professional — target early 2027
+
+## Environment
+- Python 3.13 (conda: dataeng)
+- VS Code + PyCharm
+- Git + GitHub
+- Windows 11
+
+## Repo Structure
+```
+00-docs/          — planning, master plan, cert tracks
+01-python/        — Python course code + Exercism exercises
+02-aws/           — AWS cert study materials + labs
+03-linux/         — Linux learning
+04-projects/      — portfolio projects (1-9, fintech-themed)
+05-job-search/    — CVs, applications tracker, strategy
+```

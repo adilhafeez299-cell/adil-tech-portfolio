@@ -1,4 +1,4 @@
-# Project 5: AWS Data Pipeline
+# Project 5: AWS Market Data Pipeline
 
 **Timeline:** Weeks 13-14 (Month 4)
 **Status:** Not Started
@@ -7,63 +7,101 @@
 
 ## Overview
 
-Build a serverless data pipeline on AWS using native services. This project demonstrates cloud-native architecture, leveraging AWS services for scalable data processing, and understanding of cloud infrastructure.
+Build a serverless, event-driven market data pipeline on AWS. Raw OHLCV price data lands in S3, triggers Lambda for validation, gets catalogued by Glue, and is queryable via Athena for ad-hoc analytics. Infrastructure defined as code. Aligned with AWS DE Associate certification (May 2026).
 
 **What to Build:**
 An AWS-native data pipeline that:
-- Ingests data from S3 or API
-- Processes data with Lambda or Glue
-- Stores results in data lake/warehouse
-- Implements event-driven architecture
-- Includes monitoring and alerting
+- Ingests daily OHLCV price data and trade records to S3 (data lake)
+- Triggers Lambda on S3 PUT events for validation and routing
+- Runs Glue ETL jobs to transform raw → analytical layer
+- Exposes clean data via Athena for SQL querying
+- Monitors pipeline health with CloudWatch dashboards and alerts
+- All infrastructure defined in CloudFormation / CDK
 
 ---
 
 ## Learning Objectives
 
-- Master AWS data services (S3, Glue, Athena, Lambda)
-- Implement serverless architecture patterns
-- Practice Infrastructure as Code (CloudFormation/CDK)
-- Learn event-driven processing
-- Implement cost-effective solutions
-- Configure monitoring and alerts
-- Work with AWS IAM and security
+- Master AWS data services: S3, Lambda, Glue, Athena, EventBridge, CloudWatch
+- Implement serverless, event-driven architecture patterns
+- Practice Infrastructure as Code (CloudFormation or CDK)
+- Understand partitioning strategies for time-series financial data (by date/instrument)
+- Configure IAM roles with least-privilege for data pipeline components
+- Build toward AWS DE Associate certification (May 2026)
 
 ---
 
 ## Tech Stack
 
 **Core:**
-- AWS S3
-- AWS Lambda
-- AWS Glue
-- Amazon Athena
+- AWS S3 (data lake — bronze/silver/gold prefixes)
+- AWS Lambda (event-driven ingestion + validation)
+- AWS Glue (ETL, data cataloging)
+- Amazon Athena (SQL query layer)
 
 **Supporting:**
-- AWS CloudWatch (monitoring)
-- AWS EventBridge (orchestration)
-- AWS IAM (security)
-- CloudFormation or CDK (IaC)
+- AWS CloudWatch (monitoring + alerts)
+- AWS EventBridge (scheduling daily ingestion)
+- AWS IAM (least-privilege roles)
+- CloudFormation or AWS CDK (IaC)
 
 **Development:**
-- Python (Lambda functions)
+- Python (Lambda functions, Glue scripts)
 - SQL (Athena queries)
 - Git for version control
 
 ---
 
+## Architecture
+
+```
+[EventBridge] — daily schedule trigger
+      ↓
+[Lambda: ingest] — fetches OHLCV from yfinance, writes raw CSV to S3 bronze/
+      ↓
+[S3 Event] — PUT on bronze/ triggers validation Lambda
+      ↓
+[Lambda: validate] — schema check, price spike detection, routes to silver/
+      ↓
+[Glue ETL Job] — transforms silver/ → parquet, partitioned by date/instrument → gold/
+      ↓
+[Glue Data Catalog] — crawls gold/ and registers schema
+      ↓
+[Athena] — SQL queries against gold/ (daily returns, position summaries, P&L)
+      ↓
+[CloudWatch] — pipeline execution metrics, error alarms, cost dashboard
+```
+
+---
+
+## S3 Bucket Structure
+
+```
+s3://market-data-lake-{account}/
+├── bronze/
+│   └── prices/year=2025/month=11/day=01/AAPL.csv
+├── silver/
+│   └── prices/year=2025/month=11/day=01/AAPL.parquet
+├── gold/
+│   └── daily_returns/year=2025/month=11/AAPL.parquet
+└── glue-scripts/
+    └── transform_silver_to_gold.py
+```
+
+---
+
 ## Success Criteria
 
-- [ ] Pipeline is fully serverless
-- [ ] Implements event-driven processing
-- [ ] Uses S3 for data lake storage
-- [ ] Includes data cataloging with Glue
-- [ ] Queries data with Athena
-- [ ] Infrastructure defined as code
-- [ ] Includes CloudWatch monitoring
-- [ ] Implements proper IAM roles
-- [ ] Cost-optimized architecture
-- [ ] Documentation includes architecture diagram
+- [ ] Daily ingestion runs on EventBridge schedule without manual intervention
+- [ ] Lambda validates schema and rejects malformed files to a dead-letter prefix
+- [ ] Glue job transforms bronze CSV → gold Parquet with date/instrument partitioning
+- [ ] Glue Catalog automatically updated by crawler after each Glue run
+- [ ] Athena can query 2+ years of price data in under 10 seconds
+- [ ] CloudWatch alarm fires if Lambda error rate > 0 for 2 consecutive runs
+- [ ] All infrastructure deployable from a single CloudFormation stack
+- [ ] IAM roles follow least-privilege (no wildcard * permissions in production)
+- [ ] Cost estimated and documented (target: <$5/month)
+- [ ] Architecture diagram included in docs
 
 ---
 
@@ -75,19 +113,20 @@ project-5-aws-pipeline/
 │   ├── cloudformation.yaml
 │   └── parameters.json
 ├── lambda_functions/
-│   ├── ingest_data/
+│   ├── ingest_prices/
 │   │   ├── handler.py
 │   │   └── requirements.txt
-│   └── process_data/
+│   └── validate_data/
 │       ├── handler.py
 │       └── requirements.txt
 ├── glue_scripts/
-│   └── transform_data.py
+│   └── transform_silver_to_gold.py
 ├── athena_queries/
 │   ├── create_tables.sql
-│   └── analytical_queries.sql
+│   ├── daily_returns.sql
+│   └── portfolio_summary.sql
 ├── monitoring/
-│   └── cloudwatch_dashboards.json
+│   └── cloudwatch_dashboard.json
 ├── docs/
 │   ├── architecture_diagram.png
 │   └── setup_guide.md
@@ -96,47 +135,20 @@ project-5-aws-pipeline/
 
 ---
 
-## Implementation Notes
+## Key Athena Queries to Implement
 
-**Architecture Components:**
-1. S3 bucket for data lake
-2. Lambda for data ingestion
-3. Glue for ETL processing
-4. Athena for querying
-5. EventBridge for orchestration
-6. CloudWatch for monitoring
-
-**Key Features:**
-- Event-driven triggers
-- Partitioned data storage
-- Incremental processing
-- Error handling and retries
-- Cost monitoring
-
-**Bonus Features:**
-- Step Functions for complex workflows
-- SNS notifications for alerts
-- Data quality checks
-- Multi-environment setup (dev/prod)
+1. Daily returns for all instruments in a date range
+2. Top 10 instruments by 30-day volatility
+3. Correlation matrix between instruments (rolling 90-day)
+4. Missing data report — instruments with gaps in coverage
+5. Cost monitoring query — S3 storage by prefix
 
 ---
 
 ## Resources
 
-- Reference: PROJECT_LIBRARY_v1_AUTHORITATIVE.md for detailed specifications
-- AWS Glue documentation: https://docs.aws.amazon.com/glue/
-- AWS Lambda documentation: https://docs.aws.amazon.com/lambda/
-- AWS best practices for data lakes
-
----
-
-## Next Steps
-
-1. Design AWS architecture
-2. Set up AWS account and permissions
-3. Create IaC templates
-4. Implement Lambda functions
-5. Configure Glue jobs
-6. Set up Athena queries
-7. Implement monitoring
-8. Document and optimize costs
+- AWS Glue: https://docs.aws.amazon.com/glue/
+- AWS Lambda: https://docs.aws.amazon.com/lambda/
+- Amazon Athena: https://docs.aws.amazon.com/athena/
+- AWS DE Associate exam guide: https://aws.amazon.com/certification/certified-data-engineer-associate/
+- AWS Well-Architected Framework (Data Analytics Lens)
