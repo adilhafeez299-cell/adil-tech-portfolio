@@ -101,4 +101,4 @@ data-engineering-journey/
 
 ---
 
-**Last Updated:** April 2026 | **Week:** ~24 of 78 | **Target:** Data Engineer role (£60k-£75k) by mid-2027
+**Last Updated:** April 2026 | **Week:** ~24 of 78 |
